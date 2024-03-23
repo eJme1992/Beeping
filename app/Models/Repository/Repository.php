@@ -1,13 +1,13 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Repository;
 
 
 use Illuminate\Container\Container as Application;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\IRepositoryInterface;
-use App\Models\ICriteria;
-use App\Models\RepositoryException;
+use App\Models\Repository\IRepositoryInterface;
+use App\Models\Repository\ICriteria;
+use App\Models\Repository\RepositoryException;
 
 abstract class Repository implements IRepositoryInterface {	
 

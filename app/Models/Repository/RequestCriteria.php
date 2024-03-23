@@ -1,6 +1,6 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Repository;
 use Illuminate\Http\Request;
-use App\Models\IRepositoryInterface;
+use App\Models\Repository\IRepositoryInterface;
 
 /**
  * Class RequestCriteria

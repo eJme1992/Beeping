@@ -23,8 +23,8 @@ class RepositoriesServiceProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind(
-            'App\Models\Executed\IExecutedRepository',
-            'App\Models\Executed\ExecutedRepository'
+            'App\Models\IExecutedRepository',
+            'App\Models\ExecutedRepository'
         );
 
         $ref = Request::url();
