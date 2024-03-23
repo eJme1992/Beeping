@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Order;
 use App\Models\OrderLine;
 
-class OrdersSeeder extends Seeder
+class OrderLinesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +14,8 @@ class OrdersSeeder extends Seeder
      */
     public function run()
     {
-        // Crear 20 órdenes
-        Order::factory()->count(20)->create();
+        OrderLine::factory()
+            ->count(50)
+            ->create();
     }
 }

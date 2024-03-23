@@ -9,6 +9,8 @@ use App\Models\Repository\Executed\IExecutedRepository;
 use App\Models\Repository\Executed\ExecutedRepository;
 use App\Models\Repository\Order\IOrderLineRepository;
 use App\Models\Repository\Order\OrderLineRepository;
+use App\Models\Repository\Order\IOrderRepository;
+use App\Models\Repository\Order\OrderRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         // ############    Register Repositories
         $this->app->bind(IExecutedRepository::class,ExecutedRepository::class);
 		$this->app->bind(IOrderLineRepository::class, OrderLineRepository::class);
+        $this->app->bind(IOrderRepository::class, OrderRepository::class);
     }
 }
