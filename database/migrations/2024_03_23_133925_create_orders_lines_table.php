@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders_lines', function (Blueprint $table) {
+        Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('order_id')->unsigned();
             $table->integer('qty');

@@ -4,5 +4,5 @@ use App\Models\Repository\IRepositoryInterface;
 
 interface IOrderLineRepository extends IRepositoryInterface
 {
-	
+    public function getTotalCost():float;
 }
