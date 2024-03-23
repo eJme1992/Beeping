@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Order;
-use App\Models\OrderLine;
 
 class OrdersSeeder extends Seeder
 {
