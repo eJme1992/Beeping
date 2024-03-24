@@ -11,5 +11,4 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('execute:total')->everyTwoMinutes();
     }
-
 }

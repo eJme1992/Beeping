@@ -20,7 +20,7 @@ class OrderList extends Component
     public $totalCost;
     public $lastExecuted;
 
-  
+
 
     private function getOrders()
     {
@@ -34,7 +34,7 @@ class OrderList extends Component
 
     private function getTotalCost()
     {
-        $totalCost = Redis::get('total_cost');
+        $totalCost = Redis::get('process:query:total_cost');
         if ($totalCost) {
             return $totalCost;
         }

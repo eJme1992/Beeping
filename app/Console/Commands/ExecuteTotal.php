@@ -38,6 +38,11 @@ class ExecuteTotal extends Command
         $limit = 36;
         // Query the records
         $orders = $this->orderRepository->getOrderforPage($offset, $limit);
+         
+        if ($orders->isEmpty()) {
+            $this->info('All orders have been processed.');
+            return;
+        }
         // Calculate the total cost of all orders
         foreach ($orders as $order) {
             foreach ($order->orderLines as $orderLine) {
@@ -49,6 +54,7 @@ class ExecuteTotal extends Command
         // Persist the total cost and orders count in Redis
         Redis::set('process:query:orders_count', $ordersCount);
         Redis::set('process:query:total_cost', $totalCost);
+        $this->info('Total cost: ' . $totalCost);
         // Enqueue the job to save the result to the executed table
         $this->dispatcher->dispatch(function () use ($totalCost, $ordersCount) {
             // Save the result to the executed table using the endpoint
@@ -67,5 +73,6 @@ class ExecuteTotal extends Command
         $offset += $limit;
         // Persist the new offset in Redis
         Redis::set('process:query:offset', $offset);
+        $this->info('Next offset: ' . $offset);
     }
 }
