@@ -9,4 +9,9 @@ class ExecutedRepository extends AbstractRepository implements IExecutedReposito
 
   	protected $modelClassName = Executed::class;
 
+	public function getLastExecuted(): ?Executed
+	{
+		return $this->model->latest()->first();
+	}
+
 }
