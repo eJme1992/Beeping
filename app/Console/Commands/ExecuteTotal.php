@@ -54,8 +54,6 @@ class ExecuteTotal extends Command
                         'total_cost' => $totalCost,
                         'total_orders' => count($orders)
                      ]);
-                     
-                    dd($response->body());
                      // Comprobar si la solicitud fue exitosa
                      if ($response->successful()) {
                          $this->info('Total cost calculated and saved successfully.');
