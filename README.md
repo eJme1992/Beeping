@@ -17,6 +17,7 @@
   <li>Instala Redis localmente siguiendo las instrucciones en <a href="https://redis.io/docs/">redis.io/docs</a>.</li>
   <li>Instala la extensión de PHP para Redis utilizando <code>pecl install redis</code>.</li>
   <li>Verifica que la extensión <code>redis.so</code> esté activa en el archivo <code>php.ini</code>.</li>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/lbWssnwyoZg?si=xS4WIRl7mur2sFIe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </ol>
 
 <h2>Dependencias de Front-end:</h2>
@@ -52,3 +53,7 @@ php artisan db:seed --class=OrderLinesTableSeeder
 
 <h2>Ejecución del Schedule Worker:</h2>
 <p>Inicia el worker de schedule ejecutando <code>php artisan schedule:work</code>.</p>
+
+
+<h2>Para entrar en el servidor virtual:</h2>
+<p>Ejecute<code>php artisan server y entrar a la raiz para empezar a usar el programa</code>.</p>
