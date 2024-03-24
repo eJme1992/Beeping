@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Repository\Executed\IExecutedRepository;
 use App\Models\Repository\Order\IOrderRepository;
+use Illuminate\Support\Facades\Redis;
 use Livewire\WithPagination;
 
 
@@ -33,7 +34,12 @@ class OrderList extends Component
 
     private function getTotalCost()
     {
-        return $this->orderRepository->all()->sum('total_cost');
+        $totalCost = Redis::get('total_cost');
+        if ($totalCost) {
+            return $totalCost;
+        }
+        return 0;
+        //return $this->orderRepository->all()->sum('total_cost');
     }
 
     public function mount(IOrderRepository $orderRepository, IExecutedRepository $executedRepository)

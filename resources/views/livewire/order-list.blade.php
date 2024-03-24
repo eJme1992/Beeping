@@ -1,7 +1,7 @@
 <div>
 
-   <p class="h1">Listado de Pedidos</p>
-    <hr>
+   <p class="h1">Listado de Pedidos</p><hr>
+
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -28,9 +28,14 @@
             @endif
         </tbody>
     </table>
-     {{ $orders->links() }}
+     {{$orders->links()}}
     <div>
+       
         Último registro en la tabla 'executed': 
-        Pedidos: {{ $totalOrders }} - Total: {{ $totalCost }} - ({{ $lastExecuted ? $lastExecuted->created_at : 'No hay registros' }})
+        <ul>
+            <li> Pedidos: {{ $totalOrders }} </li>
+            <li> Total: {{ $totalCost }}</li>
+            <li> Ultima ejecucion: ({{ $lastExecuted ? $lastExecuted->created_at : 'No hay registros' }})</li>
+        </ul>
     </div>
 </div>
