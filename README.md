@@ -16,6 +16,7 @@
 <ol>
   <li>Instala Redis localmente siguiendo las instrucciones en <a href="https://redis.io/docs/">redis.io/docs</a>.</li>
   <li>Instala la extensión de PHP para Redis utilizando <code>pecl install redis</code>.</li>
+  <b>Nota</b> Durante la instalación en la consola preguntará si instalar otra dependencia que no son standar para php a todo decir que no
   <li>Verifica que la extensión <code>redis.so</code> esté activa en el archivo <code>php.ini</code>.</li>
   <a href="https://youtu.be/lbWssnwyoZg?si=donY5b-A78AMgVBO"> Instruciones en youtube</a>
 </ol>
