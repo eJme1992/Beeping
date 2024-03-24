@@ -41,26 +41,32 @@ class ExecuteTotal extends Command
             }
         }
 
-        // Encolar el trabajo para guardar el resultado en Redis
         Redis::throttle('execute_total')->allow(10)->every(60)->then(function () use ($totalCost, $orders) {
             // Guardar el resultado en Redis
             Redis::set('total_cost', $totalCost);
-      
+        
             // Encolar el trabajo para guardar el resultado en la tabla executed
             $this->dispacher->dispatch(function () use ($totalCost, $orders) {
-        
-                     // Guardar el resultado en la tabla executed utilizando el endpoint
-                     $response = Http::post(route('api.executed.create'), [
-                        'total_cost' => $totalCost,
-                        'total_orders' => count($orders)
-                     ]);
-                     // Comprobar si la solicitud fue exitosa
-                     if ($response->successful()) {
-                         $this->info('Total cost calculated and saved successfully.');
-                     } else {
-                         $this->error('Failed to save total cost.');
-                     }
-                 });  
+                // Guardar el resultado en la tabla executed utilizando el endpoint
+                $response = Http::post(route('api.executed.create'), [
+                    'total_cost' => $totalCost,
+                    'total_orders' => count($orders)
+                ]);
+                // Comprobar si la solicitud fue exitosa
+                if ($response->successful()) {
+                    $this->info('Total cost calculated and saved successfully.');
+                } else {
+                    $this->error('Failed to save total cost.');
+                }
+            });
+            // Este código se ejecutará después de que se haya ejecutado el throttle y se haya guardado en Redis
+            // Verificar si se guardó correctamente en Redis
+            $totalCost = Redis::get('total_cost');
+            if ($totalCost !== null) {
+                $this->info('Valor de total_cost en Redis: ' . $totalCost);
+            } else {
+                $this->error('La clave total_cost no se ha encontrado en Redis.');
+            }
         }, function () {
             return $this->error('Unable to execute the job at this time. Please try again later.');
         });
