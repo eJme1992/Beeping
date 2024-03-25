@@ -9,21 +9,27 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
 
+use App\Models\Repository\Executed\IExecutedRepository;
+use App\Models\Repository\Order\IOrderRepository;
+
 class SaveTotalCost implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $orders;
-    protected $ordersCount;
+    private $orderRepository;
+    private $executedRepository;
+    private $offset;
+    private $limit;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($orders)
+    public function __construct($offset,$limit)
     {
-        $this->orders = $orders;
+        $this->offset = $offset;
+        $this->limit = $limit;
     }
 
     /**
@@ -31,11 +37,21 @@ class SaveTotalCost implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(IOrderRepository $orderRepository,
+    IExecutedRepository $executedRepository)
     {
+        $this->orderRepository = $orderRepository;
+        $this->executedRepository = $executedRepository;
+        $offset = $this->offset;
+        $limit = $this->limit;
+       
         $totalCost   = Redis::get('process:query:total_cost') ?: 0;
         $ordersCount = Redis::get('process:query:orders_count') ?: 0;
-        $orders = $this->orders;
+
+        $orders = $this->orderRepository->getOrderforPage($offset, $limit);
+        if ($orders->isEmpty()) {
+            return;
+        }
         foreach ($orders as $order) {
             foreach ($order->orderLines as $orderLine) {
                 $totalCost += $orderLine->qty * $orderLine->product->cost;
